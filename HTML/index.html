@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My CGPA Calculator</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #10192e;
+    color: white;
+    text-align: center;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    margin-top: 30px;
+}
+
+h1 {
+    color: #38bdf8;
+}
+
+input {
+    padding: 8px;
+    margin: 5px;
+    border-radius: 5px;
+    border: none;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    background: #38bdf8;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0ea5e9;
+}
+
+.result {
+    margin-top: 20px;
+    font-size: 20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+    <h1>CGPA Calculator</h1>
+
+    <input type="number" id="numSubjects" placeholder="Number of Subjects">
+    <br>
+    <button onclick="generateInputs()">Generate Subjects</button>
+
+    <div id="subjects"></div>
+
+    <button onclick="calculateCGPA()">Calculate</button>
+    <button onclick="resetApp()">Refresh</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+function generateInputs() {
+    let n = document.getElementById("numSubjects").value;
+    let container = document.getElementById("subjects");
+    container.innerHTML = "";
+
+    for (let i = 0; i < n; i++) {
+        container.innerHTML += `
+            <div>
+                <input type="text" placeholder="Subject Name" id="name${i}">
+                <input type="number" placeholder="Marks" id="marks${i}">
+                <input type="number" placeholder="Credits" id="credit${i}">
+            </div>
+        `;
+    }
+}
+
+function getGradePoint(marks) {
+    if (marks >= 90) return 10;
+    else if (marks >= 80) return 9;
+    else if (marks >= 70) return 8;
+    else if (marks >= 60) return 7;
+    else if (marks >= 55) return 6;
+    else if (marks >= 50) return 5;
+    else if (marks >= 40) return 4;
+    else return 0;
+}
+
+function calculateCGPA() {
+    let n = document.getElementById("numSubjects").value;
+
+    let sum = 0;
+    let cgpa1 = 0;
+    let cgpa2 = 0;
+
+    for (let i = 0; i < n; i++) {
+        let marks = parseInt(document.getElementById(`marks${i}`).value);
+        let credit = parseInt(document.getElementById(`credit${i}`).value);
+
+        if (isNaN(marks) || marks < 0 || marks > 100) {
+            alert("Invalid marks!");
+            return;
+        }
+
+        let gp = getGradePoint(marks);
+
+        sum += marks;
+        cgpa1 += gp * credit;
+        cgpa2 += credit;
+    }
+
+    let per = sum / n;
+    let cgpa = cgpa2 !== 0 ? cgpa1 / cgpa2 : 0;
+
+    document.getElementById("result").innerHTML = `
+        <p>Total Marks: ${sum}</p>
+        <p>Percentage: ${per.toFixed(2)}%</p>
+        <p>CGPA: ${cgpa.toFixed(2)}</p>
+    `;
+}
+
+// 🔄 RESET FUNCTION
+function resetApp() {
+    document.getElementById("numSubjects").value = "";
+    document.getElementById("subjects").innerHTML = "";
+    document.getElementById("result").innerHTML = "";
+}
+</script>
+
+</body>
+</html>
