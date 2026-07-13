@@ -1,0 +1,132 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎉 Surprise!</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    background:linear-gradient(135deg,#1e3c72,#2a5298);
+    color:white;
+    overflow:hidden;
+}
+
+#gift{
+    font-size:120px;
+    cursor:pointer;
+    transition:0.5s;
+}
+
+#gift:hover{
+    transform:scale(1.1) rotate(10deg);
+}
+
+#message{
+    display:none;
+    text-align:center;
+    animation:pop 1s ease;
+}
+
+h1{
+    font-size:50px;
+}
+
+p{
+    font-size:22px;
+    max-width:700px;
+    margin:auto;
+}
+
+@keyframes pop{
+    from{transform:scale(0);}
+    to{transform:scale(1);}
+}
+
+.confetti{
+    position:absolute;
+    width:10px;
+    height:10px;
+    background:yellow;
+    animation:fall 4s linear infinite;
+}
+
+@keyframes fall{
+    from{
+        transform:translateY(-100vh) rotate(0deg);
+    }
+    to{
+        transform:translateY(100vh) rotate(720deg);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="gift" onclick="openGift()">
+🎁
+<br>
+<div style="font-size:22px;">Click the Gift 🎁</div>
+</div>
+
+<div id="message">
+<h1>🎉 HAPPY BIRTHDAY BRO! 🎉</h1>
+
+<h2>❤️ You're not just my friend...</h2>
+
+<p>
+You're my brother from another mother.<br><br>
+
+Thank you for always standing beside me,
+laughing with me, supporting me,
+and making every memory unforgettable.
+
+I wish you endless happiness,
+good health, success,
+and all the dreams you deserve.
+
+Have an amazing year ahead!
+
+🥳🎂🎈
+
+<br><br>
+
+<b>Happy Birthday, Laddu Nithesh ❤️</b>
+
+</p>
+
+<h1>🎊🎉🥳</h1>
+
+<audio autoplay controls>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+</div>
+
+<script>
+
+function openGift(){
+document.getElementById("gift").style.display="none";
+document.getElementById("message").style.display="block";
+
+for(let i=0;i<150;i++){
+let c=document.createElement("div");
+c.className="confetti";
+c.style.left=Math.random()*100+"vw";
+c.style.animationDelay=Math.random()*3+"s";
+c.style.background=`hsl(${Math.random()*360},100%,50%)`;
+document.body.appendChild(c);
+}
+}
+
+</script>
+
+</body>
+</html>
